@@ -12,12 +12,16 @@ export class MainComponent {
   totalIconPacks = [fas, far, fab];
   randIcon = this.getRandomIcon();
   isDisabledButton = false;
+  delay = 3000;
+
+  getRandomIndex(arrLength: number): number {
+    return Math.floor(Math.random() * arrLength);
+  }
 
   getRandomIcon(): [prefix: IconPrefix, icon: IconName] {
-    const randPackIndex = Math.floor(Math.random() * this.totalIconPacks.length);
-    const randPack = this.totalIconPacks[randPackIndex];
+    const randPack = this.totalIconPacks[this.getRandomIndex(this.totalIconPacks.length)];
     const randPackKeys = Object.keys(randPack);
-    const randIcon = randPack[randPackKeys[Math.floor(Math.random() * randPackKeys.length)]]
+    const randIcon = randPack[randPackKeys[this.getRandomIndex(randPackKeys.length)]]
     return [randIcon.prefix, randIcon.iconName];
   }
 
@@ -26,6 +30,6 @@ export class MainComponent {
     setTimeout(() => {
       this.randIcon = this.getRandomIcon();
       this.isDisabledButton = false;
-    }, 3000);
+    }, this.delay);
   }
 }
